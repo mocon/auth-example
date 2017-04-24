@@ -1,23 +1,65 @@
 import React, { Component } from 'react';
 
 class AccountModal extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userEmail: '',
+            userPassword: '',
+            staySignedIn: false
+        };
+    }
+
+    onFormChange = () => {
+        this.setState({
+            userEmail: this.refs.userEmail.value,
+            userPassword: this.refs.userPassword.value
+        });
+    }
+
+    toggleStaySignedIn = () => {
+        this.setState({ staySignedIn: !this.state.staySignedIn });
+    }
+
+    onFormSubmit = (event) => {
+        event.preventDefault();
+        // Submit form
+    }
+
     render() {
         return (
             <div className="gds-account-modal gds-account-modal--logo">
-                <form className="gds-form gds-account-modal__form gds-card -p-a-3">
+                <form onSubmit={ this.onFormSubmit } className="gds-form gds-account-modal__form gds-card -p-a-3">
                     <div className="gds-form-group -m-b-1">
                         <label className="gds-form-group__label">Email</label>
-                        <input className="gds-form-group__text-input" type="text" placeholder="user@gumgum.com" />
+                        <input
+                            ref="userEmail"
+                            onChange={ this.onFormChange }
+                            className="gds-form-group__text-input"
+                            type="text"
+                            placeholder="user@gumgum.com"
+                        />
                     </div>
                     <div className="gds-form-group -m-b-2">
                         <label className="gds-form-group__label">Password</label>
-                        <input className="gds-form-group__text-input" type="password" placeholder="password123" />
+                        <input
+                            ref="userPassword"
+                            onChange={ this.onFormChange }
+                            className="gds-form-group__text-input"
+                            type="password"
+                            placeholder="password123"
+                        />
                     </div>
                     <div className="gds-form-group -m-b-2">
                         <div className="gds-form-group__checkbox">
                             <label className="gds-form-group__checkbox-label">
-                                <input className="gds-form-group__checkbox-input" type="checkbox" value="" />
-                                <span className="gds-form-group__checkbox-indicator"></span> Stay signed in
+                                <input
+                                    onChange={ this.toggleStaySignedIn }
+                                    checked={ this.state.staySignedIn }
+                                    className="gds-form-group__checkbox-input"
+                                    type="checkbox"
+                                />
+                                <span className="gds-form-group__checkbox-indicator -m-r-2" />Stay signed in
                             </label>
                         </div>
                     </div>
