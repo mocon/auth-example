@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import xhr from '../helpers/xhr';
 
 class AccountModal extends Component {
     constructor(props) {
@@ -23,7 +24,11 @@ class AccountModal extends Component {
 
     onFormSubmit = (event) => {
         event.preventDefault();
-        // Submit form
+        xhr.post('/endpoint', {
+            email: this.state.userEmail,
+            password: this.state.userPassword,
+            rememberMe: this.state.staySignedIn
+        }); // Not tested yet
     }
 
     render() {
